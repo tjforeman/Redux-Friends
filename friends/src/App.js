@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import './App.css';
 import Login from './components/Login'
-import Friend from './components/Friend'
+import FriendsList from './components/FriendsList'
 import {Route} from 'react-router-dom'
+import PrivateRoute from './components/PrivateRoute'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
       <Route exact path='/' component={Login} />
-      <Route path='/friends' component ={Friend} />
+      <PrivateRoute path="/friends" component={() => <FriendsList  />}
+          />
       </div>
     );
   }

@@ -1,17 +1,46 @@
-
+import { LOGIN, LOGGEDIN, LOGIN_FAIL,FRIEND_LOADING, FRIEND_SUCCESS, FRIEND_FALURE, ADD_FRIEND, DELETE_FRIEND } from '../actions'
 
 const initialState={
     friends: [],
-    deletingFriend: false,
     fetchingFriends: false,
-    loggingIn: false,
-    savingFriends: false,
-    updatingFriend: false,
+    loggingIn:false,
     error: null
 }
 
-function reducer(state = initialState, action) {
 
+function reducer(state = initialState, action){
+
+  switch(action.type){
+    case LOGIN:
+    return {
+        ...state,
+        error: '',
+        loggingIn: true
+    };
+case LOGGEDIN:
+    return {
+        ...state,
+        error: '',
+        loggingIn: false,
+    };
+case LOGIN_FAIL:
+    return {
+        ...state,
+        error: action.payload,
+        loggingIn: false
+    }
+    case FRIEND_LOADING:
+      return{ ...state, fetchingFriends:true, friends: [], error: null}
+    case FRIEND_SUCCESS:
+      return{ ...state, fetchingFriends:false, friends:action.payload, error: null}
+    case FRIEND_FALURE:
+      return{ ...state, fetchingFriends:false, friends: [],error:"data did not load"}
+    case ADD_FRIEND:
+      return{ ...state, friends: action.payload}
+    case DELETE_FRIEND:
+      return{ ...state, friends: action.payload }
+    default:
+    return state;
+  }
 }
-
 export default reducer

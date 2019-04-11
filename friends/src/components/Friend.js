@@ -1,25 +1,21 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {deleteFriend} from '../actions'
 
 
 class Friend extends React.Component{
-    state={
-        friends:{
-        id: 1,
-        name: 'Joe',
-        age: 24,
-        email: 'joe@lambdaschool.com'
-        }
-        
+constructor(props){
+ super(props);
     }
     render(){
-        return(
-            <div>
-            <p>{this.state.friends.name}</p>
-            <p>{this.state.friends.age}</p>
-            <p>{this.state.friends.email}</p>
-            </div>
-        )
+      return(
+        <div className="friends-wrapper">
+          <h4>{this.props.friend.name}</h4>
+          <p>Age: {this.props.friend.age}</p>
+          <p>Email: {this.props.friend.email} </p> 
+          <button onClick={() => this.props.deleteFriend(this.props.friend.id)}>Remove Friend</button>
+        </div>
+      )
     }
-}
-
-export default Friend
+  }
+  export default connect(null, {deleteFriend})(Friend);
